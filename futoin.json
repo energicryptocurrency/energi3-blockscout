@@ -15,6 +15,9 @@
       "cd apps/block_scout_web/assets && yarn install --production=false && node_modules/.bin/webpack --mode production",
       "cd apps/explorer && yarn install",
       "@default"
+    ],
+    "migrate": [
+      "@cte mix ecto.migrate"
     ]
   }
 }

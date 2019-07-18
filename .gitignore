@@ -45,3 +45,5 @@ screenshots/
 
 # misc.
 /.vagrant
+/yarn.lock
+/node_modules
