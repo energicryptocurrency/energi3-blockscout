@@ -17,7 +17,10 @@ function transpileViewScript(file) {
           test: /\.js$/,
           exclude: /node_modules/,
           use: {
-            loader: 'babel-loader'
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env'],
+            },
           }
         },
       ]
@@ -38,7 +41,10 @@ const appJs =
           test: /\.js$/,
           exclude: /node_modules/,
           use: {
-            loader: 'babel-loader'
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env'],
+            },
           }
         },
         {
