@@ -1,0 +1,20 @@
+{
+  "vcs": "git",
+  "name": "energi3-blockscout",
+  "tools": {
+    "yarn": true
+  },
+  "entryPoints": {
+    "blockscout": {
+      "tool": "phoenix",
+      "path": "mix.exs"
+    }
+  },
+  "actions": {
+    "prepare": [
+      "cd apps/block_scout_web/assets && yarn install --production=false && node_modules/.bin/webpack --mode production",
+      "cd apps/explorer && yarn install",
+      "@default"
+    ]
+  }
+}
