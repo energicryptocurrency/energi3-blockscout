@@ -27,13 +27,14 @@
   },
   "webcfg": {
     "mounts": {
-       "/": {
-         "app": "blockscout"
-       }
+      "/": {
+        "app": "blockscout"
+      }
     }
   },
   "persistent": [
     "deps",
     "logs"
-  ]
+  ],
+  "version": "3.0.0"
 }
