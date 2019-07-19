@@ -19,5 +19,12 @@
     "migrate": [
       "@cte mix ecto.migrate"
     ]
+  },
+  "webcfg": {
+    "mounts": {
+       "/": {
+         "app": "blockscout"
+       }
+    }
   }
 }
