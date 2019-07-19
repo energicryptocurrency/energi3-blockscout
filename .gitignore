@@ -42,3 +42,8 @@ screenshots/
 
 # mix phx.gen.cert self-signed certs for dev
 /apps/block_scout_web/priv/cert
+
+# misc.
+/.vagrant
+/yarn.lock
+/node_modules

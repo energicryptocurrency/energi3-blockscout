@@ -21,6 +21,8 @@ config :logger, :reading_token_functions,
   metadata_filter: [fetcher: :token_functions],
   rotate: %{max_bytes: 52_428_800, keep: 19}
 
+import_config "prod.secret.exs"
+
 variant =
   if is_nil(System.get_env("ETHEREUM_JSONRPC_VARIANT")) do
     "parity"

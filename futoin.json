@@ -1,0 +1,39 @@
+{
+  "vcs": "git",
+  "name": "energi3-blockscout",
+  "tools": {
+    "yarn": true
+  },
+  "entryPoints": {
+    "blockscout": {
+      "tool": "phoenix",
+      "path": "mix.exs"
+    }
+  },
+  "actions": {
+    "prepare": [
+      "@cte mix deps.get",
+      "cd apps/block_scout_web/assets && yarn install --production=false",
+      "cd apps/explorer && yarn install",
+      "@default"
+    ],
+    "build": [
+      "cd apps/block_scout_web/assets && node_modules/.bin/webpack --mode production",
+      "@default"
+    ],
+    "migrate": [
+      "@cte mix ecto.migrate"
+    ]
+  },
+  "webcfg": {
+    "mounts": {
+       "/": {
+         "app": "blockscout"
+       }
+    }
+  },
+  "persistent": [
+    "deps",
+    "logs"
+  ]
+}

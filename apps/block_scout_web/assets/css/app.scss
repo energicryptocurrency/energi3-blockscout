@@ -10,12 +10,13 @@
 // Font Awesome
 $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 @import "fontawesome";
-@import "fa-brands";
-@import "fa-regular";
-@import "fa-solid";
+@import "brands";
+@import "regular";
+@import "solid";
 
 // Bootstrap Core CSS
 @import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
 @import "node_modules/bootstrap/scss/mixins";
 
 @import "theme/variables";
