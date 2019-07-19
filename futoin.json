@@ -12,8 +12,13 @@
   },
   "actions": {
     "prepare": [
-      "cd apps/block_scout_web/assets && yarn install --production=false && node_modules/.bin/webpack --mode production",
+      "@cte mix deps.get",
+      "cd apps/block_scout_web/assets && yarn install --production=false",
       "cd apps/explorer && yarn install",
+      "@default"
+    ],
+    "build": [
+      "cd apps/block_scout_web/assets && node_modules/.bin/webpack --mode production",
       "@default"
     ],
     "migrate": [
@@ -26,5 +31,9 @@
          "app": "blockscout"
        }
     }
-  }
+  },
+  "persistent": [
+    "deps",
+    "logs"
+  ]
 }
