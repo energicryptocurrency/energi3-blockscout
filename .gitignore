@@ -47,3 +47,4 @@ screenshots/
 /.vagrant
 /yarn.lock
 /node_modules
+.idea
