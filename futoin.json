@@ -5,6 +5,7 @@
   "rms": "aws",
   "rmsRepo": "s3://download.energi.software/internal/gen3/blockscout",
   "tools": {
+    "node": "10",
     "yarn": true
   },
   "entryPoints": {

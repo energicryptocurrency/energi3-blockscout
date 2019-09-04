@@ -9,7 +9,7 @@ import '../css/app.scss'
 //
 // Import dependencies
 //
-import 'core-js'
+import '@babel/polyfill'
 import 'phoenix_html'
 import 'bootstrap'
 

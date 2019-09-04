@@ -253,7 +253,7 @@ export const elements = {
  */
 export function createAsyncLoadStore (reducer, initialState, itemKey) {
   const state = merge(asyncInitialState, initialState)
-  const store = createStore(reduceReducers(state, asyncReducer, reducer))
+  const store = createStore(reduceReducers(asyncReducer, reducer, state))
 
   if (typeof itemKey !== 'undefined') {
     store.dispatch({
