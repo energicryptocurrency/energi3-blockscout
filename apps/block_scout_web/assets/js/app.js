@@ -9,7 +9,7 @@ import '../css/app.scss'
 //
 // Import dependencies
 //
-import 'core-js'
+import '@babel/polyfill'
 import 'phoenix_html'
 import 'bootstrap'
 
@@ -19,6 +19,9 @@ import 'bootstrap'
 // paths "./socket" or full ones "web/static/js/socket".
 
 import './locale'
+
+// support of preload in Firefox
+import '../node_modules/fg-loadcss/dist/cssrelpreload.min'
 
 import './pages/address'
 import './pages/address/coin_balances'
@@ -35,6 +38,7 @@ import './pages/favorites'
 import './pages/network-search'
 import './pages/layout'
 import './pages/verification_form'
+import './pages/dark-mode-switcher'
 
 import './pages/admin/tasks.js'
 
@@ -58,5 +62,6 @@ import './lib/async_listing_load'
 import './lib/tooltip'
 import './lib/modals'
 import './lib/try_api'
+import './lib/try_eth_api'
 import './lib/card_tabs'
 import './lib/network_selector'

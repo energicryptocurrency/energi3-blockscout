@@ -48,3 +48,6 @@ screenshots/
 /yarn.lock
 /node_modules
 .idea
+
+/.package.checksums
+/*.txz
