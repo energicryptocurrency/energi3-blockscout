@@ -6,6 +6,15 @@ $tertiary: #BDBDBD;
 //header
 $header-background-color: #263238;
 $header-links-color: #f4f4f6;
+$header-links-color-active: #f4f4f6;
+$header-icon-color-hover: $primary;
+$header-icon-border-color-hover: $primary;
+
+// navigation
+$dropdown-menu-item-hover-color: $primary !default;
+$dropdown-menu-item-hover-background: rgba($primary, .1) !default;
+$dropdown-menu-item-color: $header-links-color;
+
 
 // dashboard
 $dashboard-banner-network-plain-container-background-color: $header-background-color;
