@@ -25,7 +25,9 @@ $dashboard-banner-gradient-end: #212121;
 $dashboard-stats-item-border-color: $primary;
 $dashboard-stats-item-label-color: $primary;
 $dashboard-banner-chart-legend-label-color: $header-links-color;
-
+#dark-mode-changer {
+  display:none;
+}
 
 .dashboard-banner-container {
   background-color: #212121;
@@ -45,6 +47,7 @@ $dashboard-banner-chart-legend-label-color: $header-links-color;
     );
   }
 }
+
 
 // buttons
 $btn-line-bg: #fff; // button bg
