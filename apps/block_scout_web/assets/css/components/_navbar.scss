@@ -1,14 +1,15 @@
 // Default variables
 $header-background-color: #fff !default;
+$header-search-input-color: #0e0c0c;
 $header-links-color: #828ba0 !default;
 $header-links-color-active: #333 !default;
 $header-icon-color: $header-links-color !default;
 $header-icon-color-hover: $secondary !default;
 $header-icon-border-color-hover: $secondary !default;
 $header-toggler-icon: "data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{transparentize($primary, 0.5)}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E" !default;
-$header-textfield-text-color: $header-links-color !default;
+$header-textfield-text-color: $header-search-input-color !default;
 $header-textfield-background-color: #f5f6fa !default;
-$header-textfield-magnifier-color: $header-links-color !default;
+$header-textfield-magnifier-color: $header-search-input-color !default;
 $header-link-horizontal-padding: 0.71rem;
 $navbar-logo-height: 28px !default;
 $navbar-logo-width: auto !default;
@@ -121,7 +122,7 @@ $navbar-logo-width: auto !default;
   .form-control {
     background: $header-textfield-background-color;
     border-color: $header-textfield-background-color;
-    color: $header-textfield-text-color;
+    color: black;
     font-size: 14px;
     height: 100%;
     padding-left: 38px;
@@ -171,6 +172,10 @@ $navbar-logo-width: auto !default;
 
     * {
       fill: $header-textfield-magnifier-color;
+
+      &:hover {
+        fill:
+      }
     }
   }
   .input-group-text {
