@@ -1,12 +1,24 @@
 use Mix.Config
 
 # Configures the database
+#config :explorer, Explorer.Repo,
+#  url: System.get_env("DATABASE_URL"),
+#  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
+#  ssl: String.equivalent?(System.get_env("ECTO_USE_SSL") || "true", "true"),
+#  prepare: :unnamed,
+#  timeout: :timer.seconds(60)
+
+# FutoIn CID / Database convention
 config :explorer, Explorer.Repo,
-  url: System.get_env("DATABASE_URL"),
-  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
-  ssl: String.equivalent?(System.get_env("ECTO_USE_SSL") || "true", "true"),
-  prepare: :unnamed,
-  timeout: :timer.seconds(60)
+    database: System.get_env("DB_APP_DB") || "vagrant",
+    hostname: System.get_env("DB_APP_HOST") || "localhost",
+    port: String.to_integer(System.get_env("DB_APP_PORT") || "5432"),
+    username: System.get_env("DB_APP_USER") || "vagrant",
+    password: System.get_env("DB_APP_PASS") || "vagrant",
+    pool_size: String.to_integer(System.get_env("DB_APP_MAXCONN") || "10"),
+    ssl: false,
+    prepare: :unnamed,
+    timeout: :timer.seconds(60)
 
 config :explorer, Explorer.Tracer, env: "production", disabled?: true
 
