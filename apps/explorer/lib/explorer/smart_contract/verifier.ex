@@ -69,7 +69,8 @@ defmodule Explorer.SmartContract.Verifier do
     blockchain_bytecode_without_whisper = extract_bytecode(blockchain_bytecode)
 
     cond do
-      generated_bytecode != blockchain_bytecode_without_whisper ->
+      generated_bytecode != blockchain_bytecode_without_whisper &&
+          !try_library_verification(generated_bytecode, blockchain_bytecode_without_whisper) ->
         {:error, :generated_bytecode}
 
       has_constructor_with_params?(abi) &&
@@ -79,6 +80,18 @@ defmodule Explorer.SmartContract.Verifier do
       true ->
         {:ok, %{abi: abi}}
     end
+  end
+
+  # 730000000000000000000000000000000000000000 - default library address that returned by the compiler
+  defp try_library_verification(
+         "730000000000000000000000000000000000000000" <> bytecode,
+         <<_address::binary-size(42)>> <> bytecode
+       ) do
+    true
+  end
+
+  defp try_library_verification(_, _) do
+    false
   end
 
   @doc """
@@ -110,6 +123,14 @@ defmodule Explorer.SmartContract.Verifier do
 
       # Solidity >= 0.5.9; https://github.com/ethereum/solidity/blob/aa4ee3a1559ebc0354926af962efb3fcc7dc15bd/docs/metadata.rst
       "a265627a7a72305820" <>
+          <<_::binary-size(64)>> <> "64736f6c6343" <> <<_::binary-size(6)>> <> "0032" <> _constructor_arguments ->
+        extracted
+        |> Enum.reverse()
+        |> :binary.list_to_bin()
+
+      # Solidity >= 0.5.11 https://github.com/ethereum/solidity/blob/develop/Changelog.md#0511-2019-08-12
+      # Metadata: Update the swarm hash to the current specification, changes bzzr0 to bzzr1 and urls to use bzz-raw://
+      "a265627a7a72315820" <>
           <<_::binary-size(64)>> <> "64736f6c6343" <> <<_::binary-size(6)>> <> "0032" <> _constructor_arguments ->
         extracted
         |> Enum.reverse()

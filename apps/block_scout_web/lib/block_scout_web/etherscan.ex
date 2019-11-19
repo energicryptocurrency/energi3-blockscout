@@ -163,7 +163,16 @@ defmodule BlockScoutWeb.Etherscan do
         "contractAddress" => "0x0000000000000000000000000000000000000000",
         "name" => "Example Token",
         "decimals" => "18",
-        "symbol" => "ET"
+        "symbol" => "ET",
+        "type" => "ERC-20"
+      },
+      %{
+        "balance" => "1",
+        "contractAddress" => "0x0000000000000000000000000000000000000001",
+        "name" => "Example ERC-721 Token",
+        "decimals" => "18",
+        "symbol" => "ET7",
+        "type" => "ERC-721"
       }
     ]
   }
@@ -704,11 +713,6 @@ defmodule BlockScoutWeb.Etherscan do
         type: "timestamp",
         definition: "When the block was collated.",
         example: ~s("1480072029")
-      },
-      blockReward: %{
-        type: "block reward",
-        definition: "The reward given to the miner of a block.",
-        example: ~s("5003251945421042780")
       }
     }
   }
@@ -1185,7 +1189,7 @@ defmodule BlockScoutWeb.Etherscan do
         key: "sort",
         type: "string",
         description:
-          "A string representing the order by block number direction. Defaults to ascending order. Available values: asc, desc"
+          "A string representing the order by block number direction. Defaults to descending order. Available values: asc, desc"
       },
       %{
         key: "startblock",
@@ -1942,7 +1946,24 @@ defmodule BlockScoutWeb.Etherscan do
 
   @contract_verify_action %{
     name: "verify",
-    description: "Verify a contract with its source code and contract creation information.",
+    description: """
+    Verify a contract with its source code and contract creation information.
+    <br/>
+    <br/>
+    <p class="api-doc-list-item-text">curl POST example:</p>
+    <br/>
+    <div class='tab-content'>
+    <div class='tab-pane fade show active'>
+    <div class="tile tile-muted p-1">
+    <div class="m-2">
+    curl -d '{"addressHash":"0xd6984e092b51337032cf0300c7291e4839be37e1","compilerVersion":"v0.5.4+commit.9549d8ff",
+    "contractSourceCode":"pragma solidity ^0.5.4;\n","name":"Test","optimization":false}'
+    -H "Content-Type: application/json" -X POST  "https://blockscout.com/eth/kovan/api?module=contract&action=verify"
+    </pre>
+    </div>
+    </div>
+    </div>
+    """,
     required_params: [
       %{
         key: "addressHash",

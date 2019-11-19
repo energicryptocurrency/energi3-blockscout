@@ -56,6 +56,33 @@ defmodule Explorer.SmartContract.VerifierTest do
       assert abi != nil
     end
 
+    test "verifies smart contract with new `whisper` metadata (bzz0 => bzz1) in solidity 0.5.11" do
+      contract_data =
+        "#{File.cwd!()}/test/support/fixture/smart_contract/solidity_5.11_new_whisper_metadata.json"
+        |> File.read!()
+        |> Jason.decode!()
+
+      compiler_version = contract_data["compiler_version"]
+      name = contract_data["name"]
+      optimize = false
+      contract = contract_data["contract"]
+      expected_bytecode = contract_data["bytecode"]
+      evm_version = contract_data["evm_version"]
+
+      contract_address = insert(:contract_address, contract_code: "0x" <> expected_bytecode)
+
+      params = %{
+        "contract_source_code" => contract,
+        "compiler_version" => compiler_version,
+        "evm_version" => evm_version,
+        "name" => name,
+        "optimization" => optimize
+      }
+
+      assert {:ok, %{abi: abi}} = Verifier.evaluate_authenticity(contract_address.hash, params)
+      assert abi != nil
+    end
+
     test "verifies smart contract with constructor arguments", %{
       contract_code_info: contract_code_info
     } do
@@ -111,6 +138,34 @@ defmodule Explorer.SmartContract.VerifierTest do
         "evm_version" => "homestead",
         "name" => "Incrementer",
         "optimization" => false
+      }
+
+      assert {:ok, %{abi: abi}} = Verifier.evaluate_authenticity(contract_address.hash, params)
+      assert abi != nil
+    end
+
+    test "verifies a library" do
+      bytecode =
+        "0x7349f540c22cba15c47a08c235e20081474201a742301460806040526004361060335760003560e01c8063c2985578146038575b600080fd5b603e60b0565b6040805160208082528351818301528351919283929083019185019080838360005b8381101560765781810151838201526020016060565b50505050905090810190601f16801560a25780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b604080518082019091526003815262666f6f60e81b60208201529056fea265627a7a72315820174b282a3ef3b9778d79fbc2e4c36bc939c54dfaaaa51d3122ee6e648093844c64736f6c634300050b0032"
+
+      contract_address = insert(:contract_address, contract_code: bytecode)
+
+      code = """
+      pragma solidity 0.5.11;
+
+      library Foo {
+          function foo() external pure returns (string memory) {
+              return "foo";
+          }
+      }
+      """
+
+      params = %{
+        "contract_source_code" => code,
+        "compiler_version" => "v0.5.11+commit.c082d0b4",
+        "evm_version" => "default",
+        "name" => "Foo",
+        "optimization" => true
       }
 
       assert {:ok, %{abi: abi}} = Verifier.evaluate_authenticity(contract_address.hash, params)

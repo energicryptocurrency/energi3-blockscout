@@ -42,9 +42,9 @@ defmodule Explorer.Chain.AddressTransactionCsvExporter do
   end
 
   defp fetch_all_transactions(address_hash, paging_options, acc \\ []) do
-    options = Keyword.merge(@necessity_by_association, paging_options: paging_options)
+    options = Keyword.put(@necessity_by_association, :paging_options, paging_options)
 
-    transactions = Chain.address_to_transactions_with_rewards(address_hash, options)
+    transactions = Chain.address_to_transactions_without_rewards(address_hash, options)
 
     new_acc = transactions ++ acc
 
