@@ -16,6 +16,7 @@
   },
   "actions": {
     "prepare": [
+      "test \"${mixEnv}\" = prod",
       "@cte mix local.hex --force",
       "@cte mix deps.get",
       "cd apps/block_scout_web/assets && yarn install --production=false",

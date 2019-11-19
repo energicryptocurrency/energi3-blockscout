@@ -171,12 +171,9 @@ $navbar-logo-width: auto !default;
     width: 38px;
     z-index: 5;
 
-    * {
+    *,
+    &:hover {
       fill: $header-textfield-magnifier-color;
-
-      &:hover {
-        fill:
-      }
     }
   }
   .input-group-text {

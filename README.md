@@ -1,3 +1,76 @@
+
+# Energi changes
+
+## The standard FutoIn CID workflow:
+
+```bash
+# Ensure builds for production
+export mixEnv=prod
+
+# Development
+cid prepare
+cid build
+cid migrate
+cid devserve
+
+# Staging builds
+cid ci_build master staging
+
+# production builds
+cid tag master
+cid ci_build NEW_TAG prod
+```
+
+## Energi Core Node
+
+```bash
+./energi3 \
+    --testnet \
+    --rpcvhosts '*' \
+    --ws \
+    --rpc \
+    --rpcapi debug,eth,net,shh,txpool,web3,masternode,energi \
+    --wsapi debug,eth,net,shh,txpool,web3,masternode,energi \
+    --rpccorsdomain '*' \
+    --wsorigins '*'
+```
+
+## Important configuration variables to be set at deployment & testing
+
+*Hint: source config/devenv.sh.*
+
+* `BLOCKSCOUT_HOST` - server name
+* `SECRET_KEY_BASE` - use `mix phx.gen.secret`
+* `CHECK_ORIGIN=true`
+* `NETWORK=Energi`
+* `SUBNETWORK` - either `Testnet` or `Mainnet`
+* `NETWORK_ICON`
+* `LOGO=/images/energi_logo.png`
+* `LOGO_FOOTER=/images/energi_logo_footer.png`
+* `COIN=NRG`
+* `ALLOWED_EVM_VERSIONS=petersburg`
+* `ETHEREUM_JSONRPC_VARIANT=geth'
+* `ETHEREUM_JSONRPC_HTTP_URL=http://127.0.0.1:49796"
+* `ETHEREUM_JSONRPC_TRACE_URL=http://127.0.0.1:49796" - Parity specific, no need really
+* `ETHEREUM_JSONRPC_WS_URL=ws://127.0.0.1:49795"
+* `FIRST_BLOCK=2` - skip heavy genesis and migration stuff
+
+For secondary cluster nodes:
+
+* `DISABLE_INDEXER=true` - disable concurrent indexing
+
+Others:
+
+* `BLOCKSCOUT_PROTOCOL=https`
+* `LINK_TO_OTHER_EXPLORERS=false`
+* `SUPPORTED_CHAINS=[]`
+* `DISABLE_WRITE_API=true`
+* `DISABLE_READ_API=false` (there is a bug)
+* `MAX_SKIPPING_DISTANCE=2` - protect from reorgs
+
+
+# Original README
+
 <p align="center">
   <a href="https://blockscout.com">
     <img width="200" src="https://blockscout.com/poa/core/android-chrome-192x192.png" \>
