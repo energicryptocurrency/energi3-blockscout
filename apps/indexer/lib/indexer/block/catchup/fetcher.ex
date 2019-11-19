@@ -353,7 +353,7 @@ defmodule Indexer.Block.Catchup.Fetcher do
         if number > skipping_distance do
           number - skipping_distance
         else
-          0
+          last_block()
         end
     end
   end
