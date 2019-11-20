@@ -1,4 +1,6 @@
 
+export mixEnv=prod
+
 export BLOCKSCOUT_HOST=localhost
 export SECRET_KEY_BASE="pJpG2xbESAIdia0pVOdrbLDE9m0yRLzvz9BL2aW3SxrF3+h4/rsSXkspJ+XgmGWm"
 export CHECK_ORIGIN=true
