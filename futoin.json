@@ -39,10 +39,10 @@
     }
   },
   "persistent": [
-    "deps",
     "logs"
   ],
   "package": [
+    "_build",
     "apps",
     "config",
     "deps",
