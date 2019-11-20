@@ -12,6 +12,14 @@
     "blockscout": {
       "tool": "phoenix",
       "path": "mix.exs"
+    },
+    "web": {
+      "tool": "nginx",
+      "path": "apps/block_scout_web/priv/static",
+      "tune": {
+        "socketPort": 8080,
+        "socketType": "tcp"
+      }
     }
   },
   "actions": {
@@ -32,9 +40,16 @@
     ]
   },
   "webcfg": {
+    "root": "apps/block_scout_web/priv/static",
     "mounts": {
       "/": {
-        "app": "blockscout"
+        "app": "blockscout",
+        "static": true,
+        "tune": {
+          "etag": true,
+          "pattern": true,
+          "staticGzip": true
+        }
       }
     }
   },
