@@ -283,7 +283,7 @@ defmodule Indexer.Block.Fetcher do
   def async_import_internal_transactions(%{blocks: blocks}, EthereumJSONRPC.Parity) do
     blocks
     |> Enum.map(fn %Block{number: block_number} -> %{number: block_number} end)
-    |> InternalTransaction.async_block_fetch(10_000)
+    |> InternalTransaction.async_block_fetch(60_000)
   end
 
   def async_import_internal_transactions(%{transactions: transactions}, EthereumJSONRPC.Geth) do
@@ -300,7 +300,7 @@ defmodule Indexer.Block.Fetcher do
     |> Enum.filter(fn %{block_number: block_number} ->
       max_block_number - block_number < @geth_block_limit
     end)
-    |> InternalTransaction.async_fetch(10_000)
+    |> InternalTransaction.async_fetch(60_000)
   end
 
   def async_import_internal_transactions(_, _), do: :ok

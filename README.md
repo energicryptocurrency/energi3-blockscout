@@ -26,6 +26,7 @@ cid ci_build NEW_TAG prod
 ```bash
 ./energi3 \
     --testnet \
+    --gcmode archive \
     --rpcvhosts '*' \
     --ws \
     --rpc \

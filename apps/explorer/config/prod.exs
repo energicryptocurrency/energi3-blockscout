@@ -15,7 +15,7 @@ config :explorer, Explorer.Repo,
     port: String.to_integer(System.get_env("DB_APP_PORT") || "5432"),
     username: System.get_env("DB_APP_USER") || "vagrant",
     password: System.get_env("DB_APP_PASS") || "vagrant",
-    pool_size: String.to_integer(System.get_env("DB_APP_MAXCONN") || "10"),
+    pool_size: String.to_integer(System.get_env("DB_APP_MAXCONN") || "50"),
     ssl: false,
     prepare: :unnamed,
     timeout: :timer.seconds(60)
