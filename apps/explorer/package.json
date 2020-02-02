@@ -8,12 +8,12 @@
   "author": "POA Network",
   "license": "GPL-3.0",
   "engines": {
-    "node": ">=10",
-    "npm": ">=5"
+    "node": ">=12",
+    "npm": ">=6"
   },
   "scripts": {},
   "dependencies": {
     "keccak": "^2.0.0",
-    "solc": "^0.5.12"
+    "solc": "^0.6.1"
   }
 }
