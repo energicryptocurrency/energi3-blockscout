@@ -5,7 +5,7 @@
   "rms": "aws",
   "rmsRepo": "s3://download.energi.software/internal/gen3/blockscout",
   "tools": {
-    "node": "10",
+    "node": "12",
     "yarn": true
   },
   "entryPoints": {
@@ -26,6 +26,7 @@
     "prepare": [
       "test \"${mixEnv}\" = prod",
       "@cte mix local.hex --force",
+      "@cte mix local.rebar --force",
       "@cte mix deps.get",
       "cd apps/block_scout_web/assets && yarn install --production=false",
       "cd apps/explorer && yarn install",
