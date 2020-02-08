@@ -5,6 +5,9 @@
 
     onlyCalls: true,
 
+    // It is not practical to parse more, which is the case for special Energi snapshot transaction
+    CAP_INPUT_LENGTH: 8 * 1024,
+
     // step is invoked for every opcode that the VM executes.
     step(log, db) {
         // Capture any errors immediately
@@ -154,7 +157,7 @@
 
     createOp(log) {
         const inputOffset = log.stack.peek(1).valueOf();
-        const inputLength = log.stack.peek(2).valueOf();
+        const inputLength = this.capInputLength(log.stack.peek(2).valueOf());
         const inputEnd = inputOffset + inputLength;
         const stackValue = log.stack.peek(0);
 
@@ -169,7 +172,7 @@
 
     create2Op(log) {
         const inputOffset = log.stack.peek(1).valueOf();
-        const inputLength = log.stack.peek(2).valueOf();
+        const inputLength = this.capInputLength(log.stack.peek(2).valueOf());
         const inputEnd = inputOffset + inputLength;
         const stackValue = log.stack.peek(0);
 
@@ -208,7 +211,7 @@
         const stackOffset = (op === 'DELEGATECALL' || op === 'STATICCALL' ? 0 : 1);
 
         const inputOffset = log.stack.peek(2 + stackOffset).valueOf();
-        const inputLength = log.stack.peek(3 + stackOffset).valueOf();
+        const inputLength = this.capInputLength(log.stack.peek(3 + stackOffset).valueOf());
         const inputEnd = inputOffset + inputLength;
 
         const call = {
@@ -272,6 +275,10 @@
     },
 
     ctxToCall(ctx) {
+        // NOTE: there a limitation of ctx.input type unlike log.memory
+        // it still does heavy in-memory processing, but avoids network load.
+        const input = toHex(ctx.input);
+        const inputLength = this.capInputLength((input.length-2)/2);
         const result = {
             type: 'call',
             callType: 'call',
@@ -280,7 +287,7 @@
             valueBigInt: bigInt(ctx.value.toString(10)),
             gasBigInt: bigInt(ctx.gas),
             gasUsedBigInt: bigInt(ctx.gasUsed),
-            input: toHex(ctx.input)
+            input: input.slice(0, (inputLength*2)+2)
         };
 
         this.putBottomChildCalls(result);
@@ -459,5 +466,10 @@
         }
 
         call.gasUsed = '0x' + gasUsedBigInt.toString(16);
-    }
+    },
+
+    capInputLength(len) {
+        if (len > this.CAP_INPUT_LENGTH) return this.CAP_INPUT_LENGTH;
+        return len;
+    },
 }
