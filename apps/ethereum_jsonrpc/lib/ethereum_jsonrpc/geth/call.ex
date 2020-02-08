@@ -397,11 +397,11 @@ defmodule EthereumJSONRPC.Geth.Call do
            "from" => from_address_hash,
            "to" => to_address_hash,
            "input" => input,
+           "output" => output,
            "gas" => gas,
            "gasUsed" => gas_used,
            "value" => 0 = value
-         } = params
-       ) do
+         }) do
     %{
       block_number: block_number,
       transaction_index: transaction_index,
@@ -415,7 +415,7 @@ defmodule EthereumJSONRPC.Geth.Call do
       gas: gas,
       gas_used: gas_used,
       input: input,
-      output: params["output"],
+      output: output,
       value: value
     }
   end

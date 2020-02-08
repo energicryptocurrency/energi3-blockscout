@@ -3,6 +3,8 @@
     // The call stack of the EVM execution.
     callStack: [{}],
 
+    onlyCalls: true,
+
     // step is invoked for every opcode that the VM executes.
     step(log, db) {
         // Capture any errors immediately
