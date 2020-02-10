@@ -12,9 +12,10 @@ defmodule EthereumJSONRPC.Application do
     config = Application.fetch_env!(:ethereum_jsonrpc, RequestCoordinator)
 
     rolling_window_opts = Keyword.fetch!(config, :rolling_window_opts)
+    max_connections = String.to_integer(System.get_env("ETHEREUM_JSONRPC_MAXCONN") || "100")
 
     [
-      :hackney_pool.child_spec(:ethereum_jsonrpc, recv_timeout: 60_000, timeout: 60_000, max_connections: 1000),
+      :hackney_pool.child_spec(:ethereum_jsonrpc, recv_timeout: 60_000, timeout: 60_000, max_connections: max_connections),
       Supervisor.child_spec({RollingWindow, [rolling_window_opts]}, id: RollingWindow.ErrorThrottle)
     ]
     |> add_throttle_rolling_window(config)

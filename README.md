@@ -54,6 +54,7 @@ cid ci_build NEW_TAG prod
 * `ETHEREUM_JSONRPC_HTTP_URL=http://127.0.0.1:49796"
 * `ETHEREUM_JSONRPC_TRACE_URL=http://127.0.0.1:49796" - Parity specific, no need really
 * `ETHEREUM_JSONRPC_WS_URL=ws://127.0.0.1:49795"
+* `ETHEREUM_JSONRPC_MAXCONN=100` - max number of pool connections
 * `FIRST_BLOCK=2` - skip heavy genesis and migration stuff
 
 For secondary cluster nodes:
