@@ -50,6 +50,16 @@ defmodule Indexer.Block.Fetcher.Receipts do
       else
         merged_params
       end
+
+      #Fix to handle specific case of Energi consensus transactions
+      if transaction_params[:from_address_hash] === "0x0000000000000000000000000000000000000320"
+         && is_nil(receipts_params[:status])
+      do
+        Map.put(merged_params, :status, :ok)
+      else
+        merged_params
+      end
+
     end)
   end
 
