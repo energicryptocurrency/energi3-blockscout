@@ -206,7 +206,7 @@ defmodule BlockScoutWeb.AddressView do
   def smart_contract_verified?(%Address{smart_contract: nil}), do: false
 
   def smart_contract_with_read_only_functions?(%Address{smart_contract: %SmartContract{}} = address) do
-    Enum.any?(address.smart_contract.abi, & &1["constant"])
+    Enum.any?(address.smart_contract.abi, &(&1["constant"] || &1["stateMutability"] == "view"))
   end
 
   def smart_contract_with_read_only_functions?(%Address{smart_contract: nil}), do: false
@@ -321,6 +321,14 @@ defmodule BlockScoutWeb.AddressView do
     >> = to_string(hash)
 
     "0x" <> short_address
+  end
+
+  def short_contract_name(name, max_length) do
+    part_length = Kernel.trunc(max_length / 4)
+
+    if String.length(name) <= max_length,
+      do: name,
+      else: "#{String.slice(name, 0, max_length - part_length)}..#{String.slice(name, -part_length, part_length)}"
   end
 
   def address_page_title(address) do
