@@ -79,7 +79,7 @@ defmodule BlockScoutWeb.API.RPC.RPCTranslator do
   @spec translate_action(String.t()) :: {:ok, atom()} | {:error, :no_action}
   defp translate_action(action) do
     action_lowercase = String.downcase(action)
-    {:ok, String.to_existing_atom(action_lowercase)}
+    {:ok, String.to_atom(action_lowercase)}
   rescue
     ArgumentError -> {:error, :no_action}
   end
@@ -97,6 +97,7 @@ defmodule BlockScoutWeb.API.RPC.RPCTranslator do
   @doc false
   @spec call_controller(Conn.t(), module(), atom()) :: {:ok, Conn.t()} | {:error, :no_action} | {:error, Exception.t()}
   defp call_controller(conn, controller, action) do
+    Code.ensure_loaded(controller)
     if :erlang.function_exported(controller, action, 2) do
       {:ok, controller.call(conn, action)}
     else
