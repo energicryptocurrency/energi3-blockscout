@@ -23,7 +23,7 @@
     "awesomplete": "1.1.2",
     "bignumber.js": "^9.0.0",
     "bootstrap": "^4.3.1",
-    "chart.js": "^2.9.2",
+    "chart.js": "^2.9.4",
     "clipboard": "^2.0.4",
     "highlight.js": "^9.16.2",
     "highlightjs-solidity": "^1.0.8",
